@@ -55,8 +55,6 @@ Page({
     if (["+", "-", "×", "÷", "="].includes(clickCode)){
       //显示区域是0，点击加减乘除和等号都无效(不能直接输入负号)
       //显示区域最后一位是运算符号,点击加减乘除和等号也无效
-      //console.log(boxNum.toString())
-      //console.log(boxNum.toString().charAt(boxNum.toString().length-1))
       if (boxNum.toString() == '0' || ["+", "-", "×", "÷"].includes(boxNum.toString().charAt(boxNum.toString().length - 1))) {
         return;
       } else {
@@ -96,7 +94,6 @@ Page({
                   var lastIndex = boxNum.toString().lastIndexOf("-");
                   var leftNum = boxNum.toString().substring(0, lastIndex)
                   var rightNum = boxNum.toString().substring(lastIndex+1, boxNum.toString().length)
-                  // var computeResult = Number(leftNum) - Number(rightNum);
                   var computeResult = compute.fixed(leftNum, rightNum, 'sub');
                   this.setData({
                     showNum: computeResult + clickCode
@@ -107,16 +104,11 @@ Page({
                     })
                   }
                 }else{//如果只有一个减号
-                console.log('一个减号')
                   //还要判断负数乘/除的情况
                   if (boxNum.toString().indexOf('×') != -1){
-                    console.log('乘')
                     var leftNum = boxNum.split("×")[0];
                     var rightNum = boxNum.split("×")[1];
-                    console.log(leftNum)
-                    console.log(rightNum)
                     var computeResult = Number(leftNum) * Number(rightNum);
-                    console.log(computeResult)
                     if (computeResult.toString().length >= 12) {
                       this.setData({
                         warp: true
@@ -150,12 +142,7 @@ Page({
             }else{//第一位不是负号
               var leftNum = boxNum.split("-")[0];
               var rightNum = boxNum.split("-")[1];
-              console.log(leftNum)
-              console.log(rightNum)
-              console.log(clickCode)
-              // var computeResult = Number(leftNum) - Number(rightNum);
               var computeResult = compute.fixed(leftNum, rightNum, 'sub');
-              console.log(computeResult)
               this.setData({
                 showNum: computeResult + clickCode
               })
@@ -169,8 +156,6 @@ Page({
           } else if (boxNum.toString().indexOf('×') != -1) {
             var leftNum = boxNum.split("×")[0];
             var rightNum = boxNum.split("×")[1];
-            console.log(leftNum)
-            console.log(rightNum)
             var computeResult = Number(leftNum) * Number(rightNum);
             if (computeResult.toString().length >= 12) {
               this.setData({
@@ -202,12 +187,9 @@ Page({
           if (boxNum.toString().indexOf('+') != -1) {
             var leftNum = boxNum.split("+")[0];
             var rightNum = boxNum.split("+")[1];
-            console.log('加法')
             //并且符号两边都有值才可以运算
             if (leftNum && rightNum){
-              // var computeResult = Number(leftNum) + Number(rightNum);
               var computeResult = compute.fixed(leftNum, rightNum, 'add');
-              console.log(computeResult)
               if (computeResult.toString().length >= 12) {
                 this.setData({
                   warp: true
@@ -250,16 +232,11 @@ Page({
                     })
                   }
                 } else {//如果只有一个减号
-                  console.log('一个减号')
                   //还要判断负数乘/除的情况
                   if (boxNum.toString().indexOf('×') != -1) {
-                    console.log('乘')
                     var leftNum = boxNum.split("×")[0];
                     var rightNum = boxNum.split("×")[1];
-                    console.log(leftNum)
-                    console.log(rightNum)
                     var computeResult = Number(leftNum) * Number(rightNum);
-                    console.log(computeResult)
                     if (computeResult.toString().length >= 12) {
                       this.setData({
                         warp: true
@@ -272,7 +249,6 @@ Page({
                   }
                   //判断负数除以一个数
                   if (boxNum.toString().indexOf('÷') != -1) {
-                    console.log('除')
                     var leftNum = boxNum.split("÷")[0];
                     var rightNum = boxNum.split("÷")[1];
                     var computeResult = Number(leftNum) / Number(rightNum);
@@ -290,12 +266,8 @@ Page({
             } else {//第一位不是负号
               var leftNum = boxNum.split("-")[0];
               var rightNum = boxNum.split("-")[1];
-              console.log(leftNum)
-              console.log(rightNum)
-              console.log(clickCode)
               // var computeResult = Number(leftNum) - Number(rightNum);
               var computeResult = compute.fixed(leftNum, rightNum, 'sub');
-              console.log(computeResult)
               this.setData({
                 showNum: computeResult
               })
@@ -313,8 +285,6 @@ Page({
             }
             var leftNum = boxNum.split("×")[0];
             var rightNum = boxNum.split("×")[1];
-            console.log(leftNum)
-            console.log(leftNum)
             if (leftNum && rightNum) {
               // var computeResult = Number(leftNum) * Number(rightNum);
               var computeResult = compute.fixed(leftNum, rightNum, 'mul');
@@ -331,8 +301,6 @@ Page({
           }else if (boxNum.toString().indexOf('÷') != -1) {
             var leftNum = boxNum.split("÷")[0];
             var rightNum = boxNum.split("÷")[1];
-            console.log(leftNum)
-            console.log(leftNum)
             if (leftNum && rightNum) {
               // var computeResult = Number(leftNum) / Number(rightNum);
               var computeResult = compute.fixed(leftNum, rightNum, 'div');
@@ -384,11 +352,7 @@ Page({
   },
   onLoad:function(options){
     this.setData({
-      showNum: options.num,
-      // view: {
-      //   Width: wx.getSystemInfoSync().windowWidth,
-      //   Height: wx.getSystemInfoSync().windowHeight
-      // }
+      showNum: options.num
     })
   },
   onReady() {
